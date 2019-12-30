@@ -5,6 +5,7 @@
     android:id="@+id/detailContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:hapticFeedbackEnabled="true"
     app:threshold="56dp"
     app:elasticity="0.4"
     tools:context=".DetailFragment">

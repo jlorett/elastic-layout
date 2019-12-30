@@ -1,9 +1,7 @@
 package com.joshualorett.elasticlayout
 
-
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,5 +44,8 @@ class DetailFragment : Fragment(), ElasticLayout.DismissListener, ElasticLayout.
     }
 
     override fun onThresholdReached() {
+        if (detailContainer?.isHapticFeedbackEnabled == true) {
+            detailContainer?.performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
+        }
     }
 }

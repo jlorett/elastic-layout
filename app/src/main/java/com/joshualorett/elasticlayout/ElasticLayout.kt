@@ -17,7 +17,7 @@ import kotlin.math.abs
  * [Float.MAX_VALUE].
  * Created by Joshua on 12/25/2019.
  */
-open class ElasticLayout(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
+open class ElasticLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr) {
     private var lastActionEvent: Int? = null
     private var totalDragDistance = 0F
@@ -25,14 +25,13 @@ open class ElasticLayout(context: Context?, attrs: AttributeSet?, defStyleAttr: 
     private val elasticity: Float
     private val fastOutSlowInInterpolator = FastOutSlowInInterpolator()
     private var lastTranslationY = 0F
+    private var crossedDragThreshold = false
 
     var dragThresholdListener: DragThresholdListener? = null
     var dismissListener: DismissListener? = null
 
-    constructor(context: Context?) : this(context, null, 0)
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
     init {
-        val attributes = getContext().obtainStyledAttributes(attrs, R.styleable.ElasticLayout, 0, 0)
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.ElasticLayout, 0, 0)
         dragThreshold =  attributes.getDimension(R.styleable.ElasticLayout_threshold, Float.MAX_VALUE)
         elasticity = attributes.getFloat(R.styleable.ElasticLayout_elasticity, 0.4F)
         attributes.recycle()
@@ -58,6 +57,9 @@ open class ElasticLayout(context: Context?, attrs: AttributeSet?, defStyleAttr: 
         } else {
             settleLayout()
         }
+        totalDragDistance = 0F
+        lastTranslationY = 0F
+        crossedDragThreshold = false
     }
 
     private fun settleLayout() {
@@ -70,8 +72,6 @@ open class ElasticLayout(context: Context?, attrs: AttributeSet?, defStyleAttr: 
                 .setDuration(200L)
                 .setInterpolator(fastOutSlowInInterpolator)
         }
-        totalDragDistance = 0F
-        lastTranslationY = 0F
     }
 
     /***
@@ -83,10 +83,16 @@ open class ElasticLayout(context: Context?, attrs: AttributeSet?, defStyleAttr: 
             return
         }
         if(abs(lastTranslationY) >= dragThreshold) {
-            dragThresholdListener?.onThresholdReached()
+            if(!crossedDragThreshold) {
+                crossedDragThreshold = true
+                dragThresholdListener?.onThresholdReached()
+            }
             val thresholdFraction = 1 + abs(lastTranslationY/dragThreshold)
             totalDragDistance += scroll/thresholdFraction
         } else {
+            if(crossedDragThreshold) {
+                crossedDragThreshold = false
+            }
             totalDragDistance += scroll
         }
         val translation = totalDragDistance * elasticity * -1
