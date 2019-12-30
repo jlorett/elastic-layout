@@ -11,11 +11,9 @@ import kotlin.math.abs
 /**
  * A [ConstraintLayout] with an elastic scroll effect. This requires a child
  * [androidx.core.widget.NestedScrollView] or [androidx.recyclerview.widget.RecyclerView].
- *
- * @property [R.styleable.ElasticLayout_elasticity] controls how elastic the layout is, the smaller
+ * - [R.styleable.ElasticLayout_elasticity] controls how elastic the layout is, the smaller
  * the number, the more stiff the layout becomes. Defaults to 0.4.
- *
- * @property [R.styleable.ElasticLayout_threshold] sets a drag boundary on the layout. Defaults to
+ * - [R.styleable.ElasticLayout_threshold] sets a drag boundary on the layout. Defaults to
  * [Float.MAX_VALUE].
  * Created by Joshua on 12/25/2019.
  */
