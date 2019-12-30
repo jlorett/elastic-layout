@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ElasticLayout">
+        <attr name="threshold" format="dimension" />
+        <attr name="elasticity" format="float" />
+    </declare-styleable>
+</resources>
