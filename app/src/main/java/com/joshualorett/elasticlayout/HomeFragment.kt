@@ -2,9 +2,7 @@ package com.joshualorett.elasticlayout
 
 
 import android.os.Bundle
-import android.transition.Slide
 import android.transition.TransitionInflater
-import android.transition.TransitionManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +34,7 @@ class HomeFragment : Fragment(), HomeListItemViewHolder.ItemClickListener {
         (requireActivity() as AppCompatActivity).setSupportActionBar(homeToolbar)
     }
 
-    private fun navigateToDetail(text: String, view: View) {
+    private fun navigateToDetail(text: String) {
         val fragment = DetailFragment()
         val bundle = Bundle()
         bundle.putString(DetailFragment.textTag, text)
@@ -45,11 +43,9 @@ class HomeFragment : Fragment(), HomeListItemViewHolder.ItemClickListener {
             .add(R.id.fragmentContainer, fragment, DetailFragment::class.java.simpleName)
             .addToBackStack(DetailFragment::class.java.simpleName)
             .commit()
-
-        TransitionManager.beginDelayedTransition(homeContainer, Slide())
     }
 
     override fun onItemClick(position: Int, text: String, view: View) {
-        navigateToDetail(text, view)
+        navigateToDetail(text)
     }
 }
