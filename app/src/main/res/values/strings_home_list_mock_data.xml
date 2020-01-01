@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="homeData">
+        <!-- A Wizard of Earthsea -->
+        <item>To light a candle is to cast a shadow…</item>
+        <!-- Hard-Boiled Wonderland and the End of the World -->
+        <item>Unclose your mind. You are not a prisoner. You are a bird in fight, searching the skies for dreams.</item>
+        <!-- Cannery Row -->
+        <item>It is the hour of pearl—the interval between day and night when time stops and examines itself.</item>
+        <!-- The Cask of Amontillado -->
+        <item>I continued, as was my wont, to smile in his face, and he did not perceive that my smile now was at the thought of his immolation.</item>
+        <!-- A Game of Thrones -->
+        <item>Why is it that when one man builds a wall, the next man immediately needs to know what\'s on the other side?</item>
+        <!-- A Midsummer Night's Dream -->
+        <item>Love looks not with the eyes, but with the mind, And therefore is winged Cupid painted blind.</item>
+        <!-- The Road -->
+        <item>What\'s the bravest thing you ever did? He spat in the road a bloody phlegm. Getting up this morning, he said.</item>
+        <!-- Perdido Street Station -->
+        <item>I wish that there was nothing to hold me here, that gravity was a suggestion I could ignore.</item>
+        <!-- Tinker, Tailor, Soldier, Spy -->
+        <item>Each of us has only a quantum of compassion. That if we lavish our concern on every stray cat, we never get to the centre of things.</item>
+        <!-- Neuromancer -->
+        <item>The sky above the port was the color of television, tuned to a dead channel.</item>
+        <!-- The King in Yellow -->
+        <item>Strange is the night where black stars rise, and strange moons circle through the skies, but stranger still is lost Carcosa.</item>
+        <!-- The Metamorphosis -->
+        <item>Then his head sank to the floor of its own accord and from his nostrils came the last faint flicker of his breath.</item>
+    </string-array>
+</resources>
