@@ -42,6 +42,16 @@ open class ElasticLayout @JvmOverloads constructor(context: Context, attrs: Attr
         return super.onInterceptTouchEvent(event)
     }
 
+    override fun onNestedPreScroll(target: View?, dx: Int, dy: Int, consumed: IntArray?) {
+        // Account for if in the middle of a scroll and the direction is reversed.
+        if (lastTranslationY > 0 && dy > 0 || lastTranslationY < 0 && dy < 0) {
+            translate(dy)
+            consumed?.let {
+                it[1] = dy
+            }
+        }
+    }
+
     override fun onStartNestedScroll(child: View?, target: View?, nestedScrollAxes: Int): Boolean {
         return nestedScrollAxes and View.SCROLL_AXIS_VERTICAL != 0
     }
