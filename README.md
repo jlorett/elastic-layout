@@ -1,6 +1,6 @@
 # ElasticLayout
 
-ElasticLayout is a CoordinatorLayout with an elastic scroll effect.
+ElasticLayout is a ConstraintLayout with an elastic scroll effect.
 
 <img src="./readme-assets/showcase.gif" width="25%"/>
 
