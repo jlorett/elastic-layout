@@ -2,7 +2,7 @@
 
 ElasticLayout is a ConstraintLayout with an elastic scroll effect.
 
-<img src="./readme-assets/showcase.gif" width="25%"/>
+<img src="./readme-assets/showcase.gif" width="40%"/>
 
 ## Layout
 
