@@ -6,7 +6,7 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:textAppearance="?android:attr/textAppearanceListItem"
     android:gravity="center_vertical"
-    android:background="?android:attr/listChoiceBackgroundIndicator"
+    android:background="?android:attr/selectableItemBackground"
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     android:paddingTop="8dp"
