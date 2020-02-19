@@ -4,11 +4,11 @@ package com.joshualorett.elasticlayout
 import android.animation.Animator
 import android.os.Bundle
 import android.transition.Fade
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -65,7 +65,7 @@ class HomeFragment : Fragment(), HomeListItemViewHolder.ItemClickListener {
             .commit()
     }
 
-    fun applyScrim() {
+    private fun applyScrim() {
         homeScrim.alpha = 0F
         homeScrim.visibility = View.VISIBLE
         homeScrim.animate().alpha(1F)
@@ -73,7 +73,7 @@ class HomeFragment : Fragment(), HomeListItemViewHolder.ItemClickListener {
             .setListener(null)
     }
 
-    fun removeScrim() {
+    private fun removeScrim() {
         homeScrim.alpha = 1F
         homeScrim.animate().alpha(0F)
             .setDuration(200)
