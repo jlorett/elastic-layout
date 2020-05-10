@@ -1,5 +1,6 @@
 package com.joshualorett.elasticlayout
 
+import android.content.Context
 import android.os.Bundle
 import android.transition.Transition
 import android.transition.TransitionInflater
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator
+import com.joshualorett.elasticlayout.listeners.ElasticDragListener
 import com.joshualorett.elasticlayout.listeners.ElasticDragReleaseListener
 import com.joshualorett.elasticlayout.listeners.ElasticDragThresholdListener
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -17,7 +19,8 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 /**
  * A simple [Fragment] subclass.
  */
-class DetailFragment : Fragment(), ElasticDragReleaseListener, ElasticDragThresholdListener {
+class DetailFragment : Fragment(), ElasticDragReleaseListener, ElasticDragThresholdListener,
+    ElasticDragListener {
     private lateinit var text: String
     private lateinit var transition: Transition
     private val transitionListener= object : Transition.TransitionListener {
@@ -41,9 +44,15 @@ class DetailFragment : Fragment(), ElasticDragReleaseListener, ElasticDragThresh
             detailText.alpha = 0F
         }
     }
+    private var backdropListener: BackdropFader? = null
 
     companion object {
         const val textTag = "textTag"
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        backdropListener = context as BackdropFader
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,9 +86,11 @@ class DetailFragment : Fragment(), ElasticDragReleaseListener, ElasticDragThresh
         super.onResume()
         detailContainer.elasticDragReleaseListener = this
         detailContainer.elasticDragThresholdListener = this
+        detailContainer.elasticDragListener = this
     }
 
     override fun onPause() {
+        detailContainer.elasticDragListener = null
         detailContainer.elasticDragThresholdListener = null
         detailContainer.elasticDragReleaseListener = null
         super.onPause()
@@ -94,6 +105,10 @@ class DetailFragment : Fragment(), ElasticDragReleaseListener, ElasticDragThresh
         if (detailContainer?.isHapticFeedbackEnabled == true) {
             detailContainer?.performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
+    }
+
+    override fun onDrag(offset: Float) {
+        backdropListener?.fade(1F-offset)
     }
 
     override fun onDragReleased() {

@@ -3,7 +3,7 @@ package com.joshualorett.elasticlayout
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MainActivity : AppCompatActivity(), ScreenAlphaListener {
+class MainActivity : AppCompatActivity(), BackdropFader {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,8 +14,8 @@ class MainActivity : AppCompatActivity(), ScreenAlphaListener {
             .commit()
     }
 
-    override fun onAlphaChanged(alpha: Float) {
+    override fun fade(alpha: Float) {
         val homeFragment = supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName) as HomeFragment?
-        homeFragment?.updateAlpha(alpha)
+        homeFragment?.updateScrimAlpha(alpha)
     }
 }

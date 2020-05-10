@@ -1,7 +1,5 @@
 package com.joshualorett.elasticlayout
 
-
-import android.animation.Animator
 import android.os.Bundle
 import android.transition.Fade
 import android.view.LayoutInflater
@@ -65,7 +63,7 @@ class HomeFragment : Fragment(), HomeListItemViewHolder.ItemClickListener {
             .commit()
     }
 
-    fun updateAlpha(alpha: Float) {
+    fun updateScrimAlpha(alpha: Float) {
         homeScrim.alpha = alpha
     }
 
@@ -78,19 +76,7 @@ class HomeFragment : Fragment(), HomeListItemViewHolder.ItemClickListener {
     }
 
     private fun removeScrim() {
-        homeScrim.alpha = 1F
-        homeScrim.animate().alpha(0F)
-            .setDuration(200)
-            .setListener(object : Animator.AnimatorListener {
-                override fun onAnimationRepeat(animation: Animator?) {}
-
-                override fun onAnimationEnd(animation: Animator?) {
-                    homeScrim.visibility = View.GONE
-                }
-
-                override fun onAnimationCancel(animation: Animator?) {}
-
-                override fun onAnimationStart(animation: Animator?) {}
-            })
+        homeScrim.alpha = 0F
+        homeScrim.visibility = View.GONE
     }
 }
