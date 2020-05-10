@@ -10,13 +10,14 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator
+import com.joshualorett.elasticlayout.listeners.ElasticDragReleaseListener
+import com.joshualorett.elasticlayout.listeners.ElasticDragThresholdListener
 import kotlinx.android.synthetic.main.fragment_detail.*
-
 
 /**
  * A simple [Fragment] subclass.
  */
-class DetailFragment : Fragment(), ElasticLayout.DismissListener, ElasticLayout.DragThresholdListener {
+class DetailFragment : Fragment(), ElasticDragReleaseListener, ElasticDragThresholdListener {
     private lateinit var text: String
     private lateinit var transition: Transition
     private val transitionListener= object : Transition.TransitionListener {
@@ -74,13 +75,13 @@ class DetailFragment : Fragment(), ElasticLayout.DismissListener, ElasticLayout.
 
     override fun onResume() {
         super.onResume()
-        detailContainer.dismissListener = this
-        detailContainer.dragThresholdListener = this
+        detailContainer.elasticDragReleaseListener = this
+        detailContainer.elasticDragThresholdListener = this
     }
 
     override fun onPause() {
-        detailContainer.dragThresholdListener = null
-        detailContainer.dismissListener = null
+        detailContainer.elasticDragThresholdListener = null
+        detailContainer.elasticDragReleaseListener = null
         super.onPause()
     }
 
@@ -89,13 +90,13 @@ class DetailFragment : Fragment(), ElasticLayout.DismissListener, ElasticLayout.
         super.onDestroy()
     }
 
-    override fun onDismiss() {
-        requireActivity().onBackPressed()
-    }
-
     override fun onThresholdReached() {
         if (detailContainer?.isHapticFeedbackEnabled == true) {
             detailContainer?.performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
         }
+    }
+
+    override fun onDragReleased() {
+        requireActivity().onBackPressed()
     }
 }

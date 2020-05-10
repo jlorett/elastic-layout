@@ -65,6 +65,10 @@ class HomeFragment : Fragment(), HomeListItemViewHolder.ItemClickListener {
             .commit()
     }
 
+    fun updateAlpha(alpha: Float) {
+        homeScrim.alpha = alpha
+    }
+
     private fun applyScrim() {
         homeScrim.alpha = 0F
         homeScrim.visibility = View.VISIBLE

@@ -6,7 +6,11 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import com.joshualorett.elasticlayout.listeners.ElasticDragListener
+import com.joshualorett.elasticlayout.listeners.ElasticDragReleaseListener
+import com.joshualorett.elasticlayout.listeners.ElasticDragThresholdListener
 import kotlin.math.abs
+import kotlin.math.min
 
 /**
  * A [ConstraintLayout] with an elastic scroll effect. This requires a child
@@ -27,8 +31,9 @@ open class ElasticLayout @JvmOverloads constructor(context: Context, attrs: Attr
     private var lastTranslationY = 0F
     private var crossedDragThreshold = false
 
-    var dragThresholdListener: DragThresholdListener? = null
-    var dismissListener: DismissListener? = null
+    var elasticDragThresholdListener: ElasticDragThresholdListener? = null
+    var elasticDragReleaseListener: ElasticDragReleaseListener? = null
+    var elasticDragListener: ElasticDragListener? = null
 
     init {
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.ElasticLayout, 0, 0)
@@ -57,13 +62,13 @@ open class ElasticLayout @JvmOverloads constructor(context: Context, attrs: Attr
     }
 
     override fun onNestedScroll(target: View?, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int,
-        dyUnconsumed: Int) {
+                                dyUnconsumed: Int) {
         translate(dyUnconsumed)
     }
 
     override fun onStopNestedScroll(child: View?) {
         if(abs(lastTranslationY) >= dragThreshold) {
-            dismissListener?.onDismiss() ?: settleLayout()
+            elasticDragReleaseListener?.onDragReleased() ?: settleLayout()
         } else {
             settleLayout()
         }
@@ -95,7 +100,7 @@ open class ElasticLayout @JvmOverloads constructor(context: Context, attrs: Attr
         if(abs(lastTranslationY) >= dragThreshold) {
             if(!crossedDragThreshold) {
                 crossedDragThreshold = true
-                dragThresholdListener?.onThresholdReached()
+                elasticDragThresholdListener?.onThresholdReached()
             }
             val thresholdFraction = 1 + abs(lastTranslationY/dragThreshold)
             totalDragDistance += scroll/thresholdFraction
@@ -108,21 +113,6 @@ open class ElasticLayout @JvmOverloads constructor(context: Context, attrs: Attr
         val translation = totalDragDistance * elasticity * -1
         translationY = translation
         lastTranslationY = translation
-    }
-
-    /**
-     * Listens for when an [ElasticLayout] has been dragged and released past its threshold.
-     * Created by Joshua on 12/30/2019.
-     */
-    interface DismissListener {
-        fun onDismiss()
-    }
-
-    /**
-     * Listens for when an [ElasticLayout] was dragged past its threshold.
-     * Created by Joshua on 12/24/2019.
-     */
-    interface DragThresholdListener {
-        fun onThresholdReached()
+        elasticDragListener?.onDrag(min(1F, abs(translation/dragThreshold)))
     }
 }
