@@ -5,19 +5,17 @@ import android.os.Bundle
 import android.transition.Transition
 import android.transition.TransitionInflater
 import android.view.HapticFeedbackConstants
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator
-
-import com.joshualorett.elasticlayout.sample.R
 import com.joshualorett.elasticlayout.listeners.ElasticDragListener
 import com.joshualorett.elasticlayout.listeners.ElasticDragReleaseListener
 import com.joshualorett.elasticlayout.listeners.ElasticDragThresholdListener
 import com.joshualorett.elasticlayout.sample.BackdropFader
-
+import com.joshualorett.elasticlayout.sample.R
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 /**
