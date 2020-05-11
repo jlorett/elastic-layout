@@ -1,2 +1,2 @@
-include ':app', ':elasticlayout'
+include ':elasticlayout', ':sample'
 rootProject.name='ElasticLayout'
