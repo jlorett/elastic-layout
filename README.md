@@ -31,10 +31,14 @@ The layout has an **elasticity** attribute (float) that controls how easy the la
 
 ## Listeners
 
-### DismissListener
+### ElasticDragListener
+
+Listens for drag events and reports back the offset from `[0, 1]`.
+
+### ElasticDragReleaseListener
 
 Listens for when an ElasticLayout has been dragged and released past its threshold. This can be used to finish an activity or remove a fragment.
 
-### DragThresholdListener
+### ElasticDragThresholdListener
 
 Listens for when an ElasticLayout was dragged past its threshold. This can be used to indicate to the user when a layout is in a dismissible state. For example, you could perform haptic feedback.
