@@ -37,10 +37,6 @@ class HomeFragment : Fragment(), HomeListItemViewHolder.ItemClickListener {
         enterTransition = Fade()
         val mockData = requireContext().resources.getStringArray(R.array.homeData).asList()
         list.adapter = HomeListAdapter(mockData, this)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         (requireActivity() as AppCompatActivity).setSupportActionBar(homeToolbar)
         requireFragmentManager().addOnBackStackChangedListener(backStackChangedListener)
     }
