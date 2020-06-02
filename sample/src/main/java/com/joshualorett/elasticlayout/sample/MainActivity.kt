@@ -10,9 +10,15 @@ class MainActivity : AppCompatActivity(), BackdropFader {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, HomeFragment(), HomeFragment::class.java.simpleName)
-            .commit()
+        if(savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.fragmentContainer,
+                    HomeFragment(),
+                    HomeFragment::class.java.simpleName
+                )
+                .commit()
+        }
     }
 
     override fun fade(alpha: Float) {
